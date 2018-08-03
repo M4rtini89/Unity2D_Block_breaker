@@ -1,0 +1,8 @@
+Theme: 
+	2 player pong with obstacles and powerups 
+	8Bit style graphics (Tron)
+
+Core gameplay:
+- Break blocks
+- Quick paced and chaotic 
+- Rewarding powerups
