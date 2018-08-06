@@ -10,8 +10,10 @@ public class Ball : MonoBehaviour {
 
     Vector3 glueOffset;
     bool isGlued = true;
+    AudioSource bounceSound;
 	// Use this for initialization
 	void Start () {
+        bounceSound = GetComponent<AudioSource>();
         glueOffset = transform.position - glueGO.transform.position;
 	}
 	
@@ -39,4 +41,15 @@ public class Ball : MonoBehaviour {
     {
         transform.position = glueGO.transform.position + glueOffset;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isGlued)
+        {
+            return;
+        }
+        bounceSound.Play();
+    }
+
+
 }

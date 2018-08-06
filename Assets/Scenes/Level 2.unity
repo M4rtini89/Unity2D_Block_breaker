@@ -203,6 +203,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114644506853223148, guid: b30c9793a5b08ab408a04a1219e21eda,
+        type: 2}
+      propertyPath: glueGO
+      value: 
+      objectReference: {fileID: 1443407886}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b30c9793a5b08ab408a04a1219e21eda, type: 2}
   m_IsPrefabAsset: 0
@@ -1304,6 +1309,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4405071949729240, guid: 7ccf84c3587022347aa3f630e5d8a76e,
     type: 2}
   m_PrefabInternal: {fileID: 1369793637}
+--- !u!1 &1443407886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1091509578332472, guid: 1f8a060174df50f4fa50262d2b4885ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 2110771632}
 --- !u!1001 &1564447670
 Prefab:
   m_ObjectHideFlags: 0
