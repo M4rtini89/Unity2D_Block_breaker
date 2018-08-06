@@ -88,7 +88,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1ba6f47c66419024e8f002bfae4cb828, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -187,6 +187,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchSpeed: {x: 2, y: 15}
   glueGO: {fileID: 0}
+  bounceSounds:
+  - {fileID: 8300000, guid: a2d01db7c261f7f41ae251196cab2593, type: 3}
+  - {fileID: 8300000, guid: 1ba6f47c66419024e8f002bfae4cb828, type: 3}
+  - {fileID: 8300000, guid: bbc4741517a374d43a823fbe23192c49, type: 3}
+  - {fileID: 8300000, guid: 13685b45e296d2343b85abf7ac572436, type: 3}
+  - {fileID: 8300000, guid: 75aaa20b2249e6849a05f69ab232be48, type: 3}
 --- !u!212 &212680539800863560
 SpriteRenderer:
   m_ObjectHideFlags: 1

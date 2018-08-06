@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
     [SerializeField] Vector2 launchSpeed = new Vector2(2f, 15f);
     [SerializeField] GameObject glueGO;
+    [SerializeField] AudioClip[] bounceSounds;
 
     Vector3 glueOffset;
     bool isGlued = true;
-    AudioSource bounceSound;
+    AudioSource bounceSoundSource;
 	// Use this for initialization
 	void Start () {
-        bounceSound = GetComponent<AudioSource>();
+        bounceSoundSource = GetComponent<AudioSource>();
         glueOffset = transform.position - glueGO.transform.position;
 	}
 	
@@ -48,7 +46,9 @@ public class Ball : MonoBehaviour {
         {
             return;
         }
-        bounceSound.Play();
+        var clip = bounceSounds[Random.Range(0, bounceSounds.Length)];
+        bounceSoundSource.pitch = Random.Range(0.8f, 1.2f);
+        bounceSoundSource.PlayOneShot(clip);
     }
 
 
