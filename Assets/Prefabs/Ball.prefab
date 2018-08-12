@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4a1afd54ec1e34fb0b55c6336051e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchSpeed: {x: 0, y: 10}
+  launchSpeed: {x: 0, y: 7}
   glueGO: {fileID: 0}
   bounceSounds:
   - {fileID: 8300000, guid: 1ba6f47c66419024e8f002bfae4cb828, type: 3}

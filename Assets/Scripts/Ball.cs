@@ -2,7 +2,7 @@
 
 public class Ball : MonoBehaviour {
 
-    [SerializeField] Vector2 launchSpeed = new Vector2(2f, 15f);
+    [SerializeField] Vector2 launchSpeed = new Vector2(0f, 7f);
     [SerializeField] GameObject glueGO;
     [SerializeField] AudioClip[] bounceSounds;
 

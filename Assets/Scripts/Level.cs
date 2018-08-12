@@ -38,6 +38,7 @@ public class Level : MonoBehaviour {
 
     void LevelFinished()
     {
+        Debug.Log("Loading new level");
         FindObjectOfType<SceneLoader>().LoadNextScene();
     }
 }

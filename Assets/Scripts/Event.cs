@@ -54,4 +54,9 @@ namespace EventCallbacks
     {
         public GameObject blockGO;
     }
+
+    public class ScoreUpdate: Event<ScoreUpdate>
+    {
+        public int score;
+    }
 }
