@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Block : MonoBehaviour {
-
-    [SerializeField] AudioClip breakSound;
+public class Block : MonoBehaviour
+{
+    [SerializeField] private AudioClip breakSound;
 
     private void Start()
     {
@@ -14,8 +12,6 @@ public class Block : MonoBehaviour {
         };
         spawnEvent.FireEvent();
     }
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

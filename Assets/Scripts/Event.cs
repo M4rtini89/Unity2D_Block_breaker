@@ -13,7 +13,9 @@ namespace EventCallbacks
         public string Description;
 
         private bool hasFired;
+
         public delegate void EventListener(T info);
+
         private static event EventListener Listeners;
 
         public static void RegisterListener(EventListener listener)
@@ -55,8 +57,12 @@ namespace EventCallbacks
         public GameObject blockGO;
     }
 
-    public class ScoreUpdate: Event<ScoreUpdate>
+    public class ScoreUpdate : Event<ScoreUpdate>
     {
         public int score;
+    }
+
+    public class GameOver : Event<GameOver>
+    {
     }
 }

@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EventCallbacks;
 using UnityEngine;
-using EventCallbacks;
 
-public class Level : MonoBehaviour {
-
-
+public class Level : MonoBehaviour
+{
     private int blockCount = 0;
 
     private void Awake()
@@ -14,19 +11,19 @@ public class Level : MonoBehaviour {
         BlockDespawn.RegisterListener(OnBlockDespawn);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         BlockSpawn.UnregisterListener(OnBlockSpawn);
         BlockDespawn.UnregisterListener(OnBlockDespawn);
     }
 
-    void OnBlockSpawn(BlockSpawn blockSpawnEvent)
+    private void OnBlockSpawn(BlockSpawn blockSpawnEvent)
     {
         blockCount++;
         //Debug.Log("one block spawned. There are now a total of " + blocks.ToString() + " blocks");
     }
 
-    void OnBlockDespawn(BlockDespawn blockDespawnEvent)
+    private void OnBlockDespawn(BlockDespawn blockDespawnEvent)
     {
         //Debug.Log("One block broke");
         blockCount--;
@@ -36,7 +33,7 @@ public class Level : MonoBehaviour {
         }
     }
 
-    void LevelFinished()
+    private void LevelFinished()
     {
         Debug.Log("Loading new level");
         FindObjectOfType<SceneLoader>().LoadNextScene();

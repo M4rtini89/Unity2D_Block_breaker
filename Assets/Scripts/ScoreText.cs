@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using EventCallbacks;
-using System;
+﻿using EventCallbacks;
 using TMPro;
+using UnityEngine;
 
-public class ScoreText : MonoBehaviour {
-
-    TextMeshProUGUI scoreText;
+public class ScoreText : MonoBehaviour
+{
+    private TextMeshProUGUI scoreText;
 
     private void Awake()
     {
@@ -20,11 +17,9 @@ public class ScoreText : MonoBehaviour {
         ScoreUpdate.UnregisterListener(onScoreUpdate);
     }
 
-
     private void onScoreUpdate(ScoreUpdate scoreEvent)
     {
         Debug.Log("new score event: " + scoreEvent.score.ToString());
         scoreText.text = scoreEvent.score.ToString();
     }
-
 }

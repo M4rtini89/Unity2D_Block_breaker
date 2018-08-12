@@ -19,23 +19,27 @@ public class GameStatus : MonoBehaviour
         else
         {
             DontDestroyOnLoad(gameObject);
+            GameOver.RegisterListener(onGameOver);
             BlockDespawn.RegisterListener(OnBlockDespawn);
             SceneManager.sceneLoaded += onSceneLoaded;
         }
     }
 
-    private void onSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    private void onGameOver(GameOver info)
     {
-        FireScoreEvent();
+        Destroy(gameObject);
     }
 
-    private void OnDestroy()
+    private void onSceneLoaded(Scene arg0, LoadSceneMode arg1) => FireScoreEvent();
+
+    private void OnDisable()
     {
+        GameOver.UnregisterListener(onGameOver);
         BlockDespawn.UnregisterListener(OnBlockDespawn);
         SceneManager.sceneLoaded -= onSceneLoaded;
     }
 
-    private void Start() => FireScoreEvent();
+    //private void Start() => FireScoreEvent();
 
     private void OnBlockDespawn(BlockDespawn info)
     {

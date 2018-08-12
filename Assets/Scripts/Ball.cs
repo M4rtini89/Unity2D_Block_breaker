@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 
-public class Ball : MonoBehaviour {
+public class Ball : MonoBehaviour
+{
+    [SerializeField] private Vector2 launchSpeed = new Vector2(0f, 7f);
+    [SerializeField] private GameObject glueGO;
+    [SerializeField] private AudioClip[] bounceSounds;
 
-    [SerializeField] Vector2 launchSpeed = new Vector2(0f, 7f);
-    [SerializeField] GameObject glueGO;
-    [SerializeField] AudioClip[] bounceSounds;
+    private Vector3 glueOffset;
+    private bool isGlued = true;
+    private AudioSource bounceSoundSource;
 
-    Vector3 glueOffset;
-    bool isGlued = true;
-    AudioSource bounceSoundSource;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    private void Start()
+    {
         bounceSoundSource = GetComponent<AudioSource>();
         glueOffset = transform.position - glueGO.transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    private void Update()
     {
         if (isGlued)
         {
@@ -50,6 +52,4 @@ public class Ball : MonoBehaviour {
         bounceSoundSource.pitch = Random.Range(0.8f, 1.2f);
         bounceSoundSource.PlayOneShot(clip);
     }
-
-
 }
