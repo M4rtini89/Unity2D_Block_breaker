@@ -1,5 +1,6 @@
 ﻿using EventCallbacks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStatus : MonoBehaviour
 {
@@ -7,9 +8,32 @@ public class GameStatus : MonoBehaviour
     [SerializeField] [Range(1, 1000)] private int scorePerBlock = 32;
     [SerializeField] private int currentScore = 0;
 
-    private void Awake() => BlockDespawn.RegisterListener(OnBlockDespawn);
+    private void Awake()
+    {
+        int gameStatusCount = FindObjectsOfType<GameStatus>().Length;
+        if (gameStatusCount > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+            BlockDespawn.RegisterListener(OnBlockDespawn);
+            SceneManager.sceneLoaded += onSceneLoaded;
+        }
+    }
 
-    private void OnDestroy() => BlockDespawn.UnregisterListener(OnBlockDespawn);
+    private void onSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        FireScoreEvent();
+    }
+
+    private void OnDestroy()
+    {
+        BlockDespawn.UnregisterListener(OnBlockDespawn);
+        SceneManager.sceneLoaded -= onSceneLoaded;
+    }
 
     private void Start() => FireScoreEvent();
 
