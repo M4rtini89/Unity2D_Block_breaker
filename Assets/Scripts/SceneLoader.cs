@@ -12,7 +12,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadStartScene()
     {
-        new GameOver().FireEvent();
+        new ResetGame().FireEvent();
         SceneManager.LoadScene(0);
     }
 

@@ -19,14 +19,15 @@ public class GameStatus : MonoBehaviour
         else
         {
             DontDestroyOnLoad(gameObject);
-            GameOver.RegisterListener(onGameOver);
+            ResetGame.RegisterListener(onGameRestart);
             BlockDespawn.RegisterListener(OnBlockDespawn);
             SceneManager.sceneLoaded += onSceneLoaded;
         }
     }
 
-    private void onGameOver(GameOver info)
+    private void onGameRestart(ResetGame info)
     {
+        //Destroy itself. Reloading the scene should then recreate it with initial values.
         Destroy(gameObject);
     }
 
@@ -34,7 +35,7 @@ public class GameStatus : MonoBehaviour
 
     private void OnDisable()
     {
-        GameOver.UnregisterListener(onGameOver);
+        ResetGame.UnregisterListener(onGameRestart);
         BlockDespawn.UnregisterListener(OnBlockDespawn);
         SceneManager.sceneLoaded -= onSceneLoaded;
     }

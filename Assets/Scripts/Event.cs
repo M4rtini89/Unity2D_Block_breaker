@@ -62,7 +62,7 @@ namespace EventCallbacks
         public int score;
     }
 
-    public class GameOver : Event<GameOver>
+    public class ResetGame : Event<ResetGame>
     {
     }
 }
