@@ -19,7 +19,6 @@ public class ScoreText : MonoBehaviour
 
     private void onScoreUpdate(ScoreUpdate scoreEvent)
     {
-        Debug.Log("new score event: " + scoreEvent.score.ToString());
         scoreText.text = scoreEvent.score.ToString();
     }
 }
