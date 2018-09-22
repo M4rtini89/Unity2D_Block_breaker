@@ -1,11 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+
+public static class Extensions
+{
+    public static bool IsWithin(this float value, float minimum, float maximum)
+    {
+        return value >= minimum && value <= maximum;
+    }
+
+    public static Vector2 Rotate(this Vector2 vector, float degrees)
+    {
+        var radians = degrees * Mathf.Deg2Rad;
+        float _x = vector.x * Mathf.Cos(radians) - vector.y * Mathf.Sin(radians);
+        float _y = vector.x * Mathf.Sin(radians) + vector.y * Mathf.Cos(radians);
+        return new Vector2(_x, _y);
+    }
+}
+
+
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private Vector2 launchSpeed = new Vector2(0f, 7f);
+    [SerializeField] private float launchSpeed = 10f;
     [SerializeField] private GameObject glueGO;
     [SerializeField] private AudioClip[] bounceSounds;
-    [SerializeField] private float randomFactor = 0.2f;
+    [SerializeField] private int booringAngleDelta = 5;
 
     private Vector3 glueOffset;
     private bool isGlued = true;
@@ -34,7 +53,7 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            myRigidbody2D.velocity = launchSpeed;
+            myRigidbody2D.velocity = Vector2.up * launchSpeed;
             isGlued = false;
         }
     }
@@ -50,46 +69,47 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-        Vector2 vel = myRigidbody2D.velocity;
-        var angle = Vector2.SignedAngle(Vector2.right, vel);
-        Debug.Log(angle);
-        if (angle > 0 && angle < 5)
-        {
+        AvoidBooringAngles();
+        AdjustVelocity();
 
-        }else if (angle < 0 && angle > -5)
-        {
-
-        }
-        else if (angle < 90 && angle > 85)
-        {
-
-        }
-        else if (angle > 90 && angle < 95)
-        {
-
-        }
-        else if (angle < 180 && angle > 175)
-        {
-
-        }
-        else if (angle > -180 && angle < -175)
-        {
-
-        }
-        else if (angle < -90 && angle > -95)
-        {
-
-        }
-        else if (angle > -90 && angle < -85)
-        {
-
-        }
-
-        Vector2 velocityTweak = Random.insideUnitCircle * randomFactor;
-        myRigidbody2D.velocity += velocityTweak;
-
-        var clip = bounceSounds[Random.Range(0, bounceSounds.Length)];
-        bounceSoundSource.pitch = Random.Range(0.8f, 1.2f);
+        var clip = bounceSounds[UnityEngine.Random.Range(0, bounceSounds.Length)];
+        bounceSoundSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         bounceSoundSource.PlayOneShot(clip);
+    }
+
+
+
+    private void AdjustVelocity()
+    {
+        Vector2 vel = myRigidbody2D.velocity;
+        vel = vel.normalized * launchSpeed;
+    }
+
+    private void AvoidBooringAngles()
+    {
+        Vector2 vel = myRigidbody2D.velocity;
+        //Angle is between 0 and 360
+        var angle = Vector2.SignedAngle(Vector2.right, vel) + 180;
+        var booringAngles = new int[] { 0, 90, 180, 270, 360 };
+        var epsilon = 0.1f;
+        foreach (var booringAngle in booringAngles)
+        {
+            var highRange = booringAngle + booringAngleDelta;
+            var lowRange = booringAngle - booringAngleDelta;
+            if (angle.IsWithin(lowRange, booringAngle))
+            {
+                myRigidbody2D.velocity = vel.Rotate(lowRange - angle - epsilon);
+                var newAngle = Vector2.SignedAngle(Vector2.right, myRigidbody2D.velocity) + 180;
+                Debug.Log("Rotated from booring angle. angle was: " + angle.ToString() + " rotated to : " + newAngle.ToString());
+                break;
+            }
+            else if (angle.IsWithin(booringAngle, highRange))
+            {
+                myRigidbody2D.velocity = vel.Rotate(highRange - angle + epsilon);
+                var newAngle = Vector2.SignedAngle(Vector2.right, myRigidbody2D.velocity) + 180;
+                Debug.Log("Rotated from booring angle. angle was: " + angle.ToString() + " rotated to : " + newAngle.ToString());
+                break;
+            }
+        }
     }
 }
